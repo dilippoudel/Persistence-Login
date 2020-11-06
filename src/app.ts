@@ -1,4 +1,4 @@
-import express, { Response, Request, NextFunction } from 'express';
+import express from 'express';
 
 import authRouter from './routers/auth';
 import strategy from './config/passport';
@@ -11,7 +11,6 @@ app.use(passport.initialize());
 app.use(cors());
 passport.use(strategy.local);
 passport.use(strategy.jwt);
-
 app.use('/api/auth', authRouter);
 
 app.listen(5000);

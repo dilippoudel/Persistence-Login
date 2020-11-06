@@ -3,10 +3,26 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import makeStore from './redux/store';
+import Axios from 'axios'
 
+const store = makeStore()
+Axios.interceptors.request.use(function (config) {
+  const token = localStorage.getItem('token')
+  
+  if (token) {
+    console.log(token)
+    config.headers['Authorization'] = `Bearer ${token}`
+  } 
+  return config
+})
 ReactDOM.render(
+  
   <React.StrictMode>
+    <Provider store={store}>
     <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

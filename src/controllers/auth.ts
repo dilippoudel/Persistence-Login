@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-const database: any[] = [{ email: 'duy@gmail.com', password: 'nguyenduy' }];
+const database: any[] = [{ email: 'duy@gmail.com', password: 'password' }];
 
 export const test = (req: Request, res: Response, next: NextFunction) => {
   res.send('this is auth router');
@@ -21,8 +21,12 @@ export const register = (req: Request, res: Response, next: NextFunction) => {
 export const login = (req: Request, res: Response, next: NextFunction) => {
   const { email } = req.body;
   const token = jwt.sign({ email: email }, 'abcd');
-  res.json({ token });
+  res.json({ token, email });
 };
+export const logout = (req:Request, res:Response, next: NextFunction) => {
+    const token = req.body.token
+    console.log(token)
+}
 
 export const getUserData = (req: any, res: Response, next: NextFunction) => {
   const user = req.user;
